@@ -6,8 +6,8 @@ login_url = "http://en.ogame.gameforge.com/main/login"
 
 data["kid"] = ""
 data["uni"] = "s124-en.ogame.gameforge.com"
-data["login"] = "alskgj"
-data["pass"] = "nid12345"
+data["login"] = "name"
+data["pass"] = "password"
 
 r = requests.post(login_url, data)
 
