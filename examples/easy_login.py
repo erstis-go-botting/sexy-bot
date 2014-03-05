@@ -2,12 +2,12 @@ import requests
 
 data = dict()
 
-login_url = "http://en.ogame.gameforge.com/main/login"
+login_url = "http://de.ogame.gameforge.com/main/login"
 
 data["kid"] = ""
-data["uni"] = "s124-en.ogame.gameforge.com"
-data["login"] = "name"
-data["pass"] = "password"
+data["uni"] = "s124-de.ogame.gameforge.com"
+data["login"] = "canon"
+data["pass"] = "zensored"
 
 r = requests.post(login_url, data)
 

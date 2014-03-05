@@ -6,7 +6,7 @@ import requests
 
 
 def login():
-    LOGIN_URL = "http://en.ogame.gameforge.com/main/login"
+    LOGIN_URL = "http://de.ogame.gameforge.com/main/login"
 
     cparser = ConfigParser()
     cparser.read("settings/settings.ini")
@@ -18,7 +18,7 @@ def login():
     data = dict()
     data['pass'] = password
     data['login'] = username
-    data['uni'] = "s"+universe+"-en.ogame.gameforge.com"
+    data['uni'] = "s"+universe+"-de.ogame.gameforge.com"
 
     requests.post(LOGIN_URL, data)
 
