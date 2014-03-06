@@ -25,8 +25,8 @@ def login():
 
     data = dict()
     data['kid'] = ""
-    data['pass'] = "put your pw here"
-    data['login'] = "put your username here"
+    data['pass'] = password
+    data['login'] = username
     data['uni'] = "s"+universe+"-de.ogame.gameforge.com"
 
     session.post(LOGIN_URL, data)

@@ -12,4 +12,4 @@ class Planet:
     name = 'unknown' #Name des Planeten
     owner = 'unknown' #Besitzer des Planeten
 
-    resources = [] # Stufe/Level der 'ressources' Gebäude
+    levels = dict() # Stufe/Level der Gebäude/Forschungen im format 'TECHID' : 'STUFE'
