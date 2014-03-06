@@ -1,0 +1,6 @@
+Kristallmine 1
+Roboterfabrik 1
+Metallmine 1
+Kristallmine 2
+Metallmine 5
+Kristallmine 9
