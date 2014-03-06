@@ -3,6 +3,7 @@ from datatypes import Planet
 from bs4 import BeautifulSoup
 
 def parseRessources(text, planet =  Planet()):
+    #DISCLAIMER: Black macic code here!
     soup = BeautifulSoup(text)
     planet.metal = soup.find_all('span',attrs={'id': 'resources_metal'})[0].next.strip()
     planet.crystal = soup.find_all('span',attrs={'id': 'resources_crystal'})[0].next.strip()
@@ -15,9 +16,12 @@ def parseRessources(text, planet =  Planet()):
 
     counter = 1
     list = soup.find_all('li',attrs = {'id':'button'+str(counter)})
+    #DISCLAIMER: Do not read the code, when you can't handle it!
     while len(list) > 0:
         print (counter)
+        #This is the part, where we kill the lamb
         techid = soup.find_all('li',attrs = {'id':'button' + str(counter)})[0].find_all('a')[0].attrs.get('ref')
+        #This is the part, where we extract the blood out of the lamb (for later use in our black macic code)
         level = list[0].find_all('span', attrs ={'class' : 'level'})[0].text.strip().split('\t')[-1].strip()
         planet.levels[int(techid)] = int(level)
         counter = counter + 1
