@@ -19,7 +19,7 @@ def parseRessources(text, planet =  Planet()):
         print (counter)
         techid = soup.find_all('li',attrs = {'id':'button' + str(counter)})[0].find_all('a')[0].attrs.get('ref')
         level = list[0].find_all('span', attrs ={'class' : 'level'})[0].text.strip().split('\t')[-1].strip()
-        planet.levels[techid] = level
+        planet.levels[int(techid)] = int(level)
         counter = counter + 1
         list = soup.find_all('li',attrs = {'id':'button'+str(counter)})
     return planet
