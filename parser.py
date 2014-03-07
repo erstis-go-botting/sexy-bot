@@ -20,7 +20,7 @@ def parseRessources(text, planet =  Planet()):
     while len(list) > 0:
         print (counter)
         #This is the part, where we kill the lamb
-        techid = soup.find_all('li',attrs = {'id':'button' + str(counter)})[0].find_all('a')[0].attrs.get('ref')
+        techid = list[0].find_all('a', attrs = {'id' : 'details'})[0].attrs.get('ref')
         #This is the part, where we extract the blood out of the lamb (for later use in our black macic code)
         level = list[0].find_all('span', attrs ={'class' : 'level'})[0].text.strip().split('\t')[-1].strip()
         planet.levels[int(techid)] = int(level)
@@ -28,5 +28,5 @@ def parseRessources(text, planet =  Planet()):
         list = soup.find_all('li',attrs = {'id':'button'+str(counter)})
     return planet
 
-text = open('examples/ressources.html').read()
-parseRessources(text)
+#text = open('examples/ressources.html').read()
+#parseRessources(text)
