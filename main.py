@@ -3,27 +3,54 @@ __author__ = 'sudo'
 
 from configparser import ConfigParser
 import requests
+import bs4
+import os
+import logging
+import inspect
+from core.navi import Bot
 
 
-def login():
-    LOGIN_URL = "http://de.ogame.gameforge.com/main/login"
+def get_logger():
+    """
+    Creates a sexy rootlogger.
+    Saves everything in 'logs/'
+    """
+    if not os.path.exists('logs/'):
+        os.makedirs('logs/')
 
-    cparser = ConfigParser()
-    cparser.read("settings/settings.ini")
+    #logging.basicConfig(level=logging.DEBUG)
+    logger = logging.getLogger('root')
+    logger.setLevel(logging.DEBUG)
 
-    password = cparser.get('credentials', 'password')
-    username = cparser.get('credentials', 'username')
-    universe = cparser.get('credentials', 'universe')
+    # create a filehandler
+    fh = logging.FileHandler('logs/debug.log')
+    fh.setLevel(logging.INFO)
 
-    data = dict()
-    data['pass'] = password
-    data['login'] = username
-    data['uni'] = "s"+universe+"-de.ogame.gameforge.com"
+    # Give us lots of infos hurrdurr
+    formatter = logging.Formatter('%(asctime)s |%(levelname)-7s | [%(filename)s:%(lineno)s - %(funcName)20s() ] '
+                                  '|%(name)-20s: %(message)s', datefmt='%d.%m %H:%M:%S')
+    fh.setFormatter(formatter)
 
-    requests.post(LOGIN_URL, data)
+    logger.addHandler(fh)
+    logger.info('created logger')
+    return logger
 
-    print('Logged in with: [{username} | {password}] on universe [{universe}]'.format(**locals()))
+logger = get_logger()
+bot = Bot()
+
+
+# page = bot.goto("resources")
+#
+# soup = bs4.BeautifulSoup(page)
+#
+# temp_buildings_parse = soup.find_all('div', attrs={"class": "buildingimg"})
+# buildable = [element.a["onclick"] for element in temp_buildings_parse if "onclick" in element.a.attrs]
+# print("%s possible buildings." % len(buildable))
+#
+# if buildable:
+#     print(buildable[0].split("'")[1])
+#     bot.session.get(buildable[0].split("'")[1])
 
 
 
-login()
+#soup.find_all('span',attrs={'id': 'resources_metal'})[0].next.strip()
