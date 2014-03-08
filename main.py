@@ -24,33 +24,26 @@ def get_logger():
 
     # create a filehandler
     fh = logging.FileHandler('logs/debug.log')
-    fh.setLevel(logging.INFO)
+    fh.setLevel(logging.DEBUG)
+
+    # create a streamhandler
+    sh = logging.StreamHandler()
+    sh.setLevel(logging.INFO)
 
     # Give us lots of infos hurrdurr
-    formatter = logging.Formatter('%(asctime)s |%(levelname)-7s | [%(filename)s:%(lineno)s - %(funcName)20s() ] '
-                                  '|%(name)-20s: %(message)s', datefmt='%d.%m %H:%M:%S')
-    fh.setFormatter(formatter)
+    fileformatter = logging.Formatter('%(asctime)s |%(levelname)-7s | [%(filename)s:%(lineno)s - %(funcName)20s() ] '
+                                      '|%(name)-20s: %(message)s', datefmt='%d.%m %H:%M:%S')
+    standardformatter = logging.Formatter(' %(asctime)s | %(filename)s:%(lineno)-5s| %(message)s',
+                                          datefmt='%d.%m %H:%M:%S')
+    fh.setFormatter(fileformatter)
+    sh.setFormatter(standardformatter)
 
+    # Add everything
     logger.addHandler(fh)
+    logger.addHandler(sh)
     logger.info('created logger')
     return logger
 
 logger = get_logger()
 bot = Bot()
 
-
-# page = bot.goto("resources")
-#
-# soup = bs4.BeautifulSoup(page)
-#
-# temp_buildings_parse = soup.find_all('div', attrs={"class": "buildingimg"})
-# buildable = [element.a["onclick"] for element in temp_buildings_parse if "onclick" in element.a.attrs]
-# print("%s possible buildings." % len(buildable))
-#
-# if buildable:
-#     print(buildable[0].split("'")[1])
-#     bot.session.get(buildable[0].split("'")[1])
-
-
-
-#soup.find_all('span',attrs={'id': 'resources_metal'})[0].next.strip()

@@ -2,13 +2,14 @@ __author__ = 'jonasfelber'
 from datatypes import Planet
 from bs4 import BeautifulSoup
 
-def parseRessources(text, planet =  Planet()):
+
+def parseRessources(text, planet = Planet()):
     #DISCLAIMER: Black macic code here!
     soup = BeautifulSoup(text)
-    planet.metal = soup.find_all('span',attrs={'id': 'resources_metal'})[0].next.strip()
-    planet.crystal = soup.find_all('span',attrs={'id': 'resources_crystal'})[0].next.strip()
-    planet.deuterium = soup.find_all('span',attrs={'id': 'resources_deuterium'})[0].next.strip()
-    planet.energy = soup.find_all('span',attrs={'id': 'resources_energy'})[0].next.strip()
+    planet.metal = soup.find_all('span', attrs={'id': 'resources_metal'})[0].next.strip()
+    planet.crystal = soup.find_all('span', attrs={'id': 'resources_crystal'})[0].next.strip()
+    planet.deuterium = soup.find_all('span', attrs={'id': 'resources_deuterium'})[0].next.strip()
+    planet.energy = soup.find_all('span', attrs={'id': 'resources_energy'})[0].next.strip()
 
     planet.coordinates = ''
     planet.name = ''

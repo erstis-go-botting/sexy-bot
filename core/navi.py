@@ -1,4 +1,5 @@
 # coding=utf-8
+__author__ = 'alskgj'
 
 # interface between bot logic and ogame
 
@@ -39,7 +40,7 @@ class Bot(object):
         self.logger.info('Bot initialized')
 
         self.login()
-        self.build_something(4) # just an example. ofc techid shouldnt be hardcoded
+        self.build_something(4)  # just an example. ofc techid shouldnt be hardcoded
 
     def login(self):
         """
@@ -63,8 +64,7 @@ class Bot(object):
 
         Bot.session.post(login_url, data)
 
-        print(data, login_url)
-        self.logger.info('Logged in with: [{username}|{password}] on universe [{self.universe}]'.format(**locals()))
+        self.logger.info('Logged in with: [{username}]:[{password}] on universe [{self.universe}]'.format(**locals()))
         return 1
 
     def goto(self, destination):

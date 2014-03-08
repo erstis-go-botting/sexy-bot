@@ -1,0 +1,22 @@
+__author__ = alskgj
+# ask him. he knows his shit.
+
+Im file main.py ist ein rootlogger konfiguriert, der in allen anderen modulen
+verwendet werden kann. Um zum beispiel in dem file meintollespythonfile.py logging zu aktivieren
+geht man folgendermassen vor:
+
+import logging
+logger = logging.getLogger('root.'+__name__)
+
+damit hat man einen logger. Um jetzt etwas zu loggen:
+
+logger.info('Hallo! Ich bin toll!')
+oder:
+logger.debug('Wow, ich bin eine debugmessage')
+
+es gibt 5 verschiedene logging stufen (geordnet nach wichtigkeit)
+debug, info, warning, error, critical
+
+alle logger aufrufe werden in logs/debug.log gespeichert. Darüber hinaus
+werden alle logging aufrufe der stufe info oder höher der standardausgabe
+übergeben.
