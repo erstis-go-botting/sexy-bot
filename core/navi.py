@@ -85,8 +85,12 @@ class Bot(object):
 
         Bot.session.post(login_url, data)
 
-        self.logger.info('Logged in with: [{username}]:[{password}] on universe [{self.universe}]'.format(**locals()))
-        return self.isLoggedIn()
+        if self.isLoggedIn():
+            self.logger.info('Logged in with: [{username}]:[{password}] on universe [{self.universe}]'.format(**locals()))
+            return 1
+
+        self.logger.error('Login FAILED with: [{username}]:[{password}] on universe [{self.universe}]'.format(**locals()))
+        return 0
 
     def build_something(self, techid):
         """
