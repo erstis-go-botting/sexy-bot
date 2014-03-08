@@ -40,7 +40,30 @@ class Bot(object):
         self.logger.info('Bot initialized')
 
         self.login()
-        self.build_something(4)  # just an example. ofc techid shouldnt be hardcoded
+        #self.build_something(4)  # just an example. ofc techid shouldnt be hardcoded
+
+    def goto(self, destination):
+        """
+        Brings you where you need to go.
+        Usage:
+        goto("resources")
+        --> Bot.session is now at page ogame.com/game/index.php?page=resources
+        returns Bot.session.text
+        """
+        self.logger.info('Navigating to '+destination)
+        return Bot.session.get(Bot.baseurl+destination).text
+
+    def isLoggedIn(self):
+        """
+        htmlText = geladene page
+        Returns 1, if True
+                0 otherwise
+        """
+        htmlText = self.goto('overview')
+        soup = BeautifulSoup(htmlText)
+        #<input id="regSubmit" type="submit" value="Registrieren" onclick="setServerCookie('subscribeForm');setUserNameCookie('subscribeForm');"></input>
+        list = soup.find_all('input', attrs = {'id' : 'regSubmit', 'type' : 'submit'})
+        return len(list) == 0
 
     def login(self):
         """
@@ -65,18 +88,7 @@ class Bot(object):
         Bot.session.post(login_url, data)
 
         self.logger.info('Logged in with: [{username}]:[{password}] on universe [{self.universe}]'.format(**locals()))
-        return 1
-
-    def goto(self, destination):
-        """
-        Brings you where you need to go.
-        Usage:
-        goto("resources")
-        --> Bot.session is now at page ogame.com/game/index.php?page=resources
-        returns Bot.session.text
-        """
-        self.logger.info('Navigating to '+destination)
-        return Bot.session.get(Bot.baseurl+destination).text
+        return self.isLoggedIn()
 
     def build_something(self, techid):
         """
