@@ -55,15 +55,14 @@ class Bot(object):
 
     def isLoggedIn(self):
         """
-        htmlText = geladene page
         Returns 1, if True
                 0 otherwise
         """
         htmlText = self.goto('overview')
         soup = BeautifulSoup(htmlText)
         #<input id="regSubmit" type="submit" value="Registrieren" onclick="setServerCookie('subscribeForm');setUserNameCookie('subscribeForm');"></input>
-        list = soup.find_all('input', attrs = {'id' : 'regSubmit', 'type' : 'submit'})
-        return len(list) == 0
+        inputNodes = soup.find_all('input', attrs = {'id' : 'regSubmit', 'type' : 'submit'})
+        return len(inputNodes) == 0
 
     def login(self):
         """
@@ -73,7 +72,6 @@ class Bot(object):
         """
 
         # TODO check if is already logged in
-        # TODO check if login is actually successful
 
         login_url = "http://de.ogame.gameforge.com/main/login"
         password = Bot.config.get('credentials', 'password')
