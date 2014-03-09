@@ -53,16 +53,25 @@ class Bot(object):
         self.logger.info('Navigating to '+destination)
         return Bot.session.get(Bot.baseurl+destination).text
 
-    def isLoggedIn(self):
+    def is_logged_in(self):
         """
-        Returns 1, if True
+        Returns 1, if logged in
                 0 otherwise
         """
-        htmlText = self.goto('overview')
-        soup = BeautifulSoup(htmlText)
+        html_text = self.goto('overview')
+        self.is_logged_in(html_text)
+
+
+    def is_logged_in(self, html_text):
+        """
+        html_text: content of webpage (text)
+        Returns 1, if logged in
+                0 otherwise
+        """
+        soup = BeautifulSoup(html_text)
         #<input id="regSubmit" type="submit" value="Registrieren" onclick="setServerCookie('subscribeForm');setUserNameCookie('subscribeForm');"></input>
-        inputNodes = soup.find_all('input', attrs = {'id' : 'regSubmit', 'type' : 'submit'})
-        return len(inputNodes) == 0
+        input_nodes = soup.find_all('input', attrs = {'id' : 'regSubmit', 'type' : 'submit'})
+        return len(input_nodes) == 0
 
     def login(self):
         """
@@ -83,9 +92,9 @@ class Bot(object):
         data['login'] = username
         data['uni'] = "s"+self.universe+"-de.ogame.gameforge.com"
 
-        Bot.session.post(login_url, data)
+        text = Bot.session.post(login_url, data).text
 
-        if self.isLoggedIn():
+        if self.is_logged_in(text):
             self.logger.info('Logged in with: [{username}]:[{password}] on universe [{self.universe}]'.format(**locals()))
             return 1
 
@@ -96,7 +105,7 @@ class Bot(object):
         """
         Takes a techid (TODO /a string)
         and tries to build it.
-        Returns 1 if succesful,
+        Returns 1 if successful,
         else 0.
         """
         techid = str(techid)
