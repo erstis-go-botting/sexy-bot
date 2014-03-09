@@ -44,7 +44,7 @@ def string_to_techID(techString):
     config.read(r'techIDs.ini')
     sections = config.sections()
     for sec in sections:
-        if not (config.get(sec, techString.title(), fallback=None))==None:
+        if not (config.get(sec, techString.title(), fallback=None)):
             return config.get(sec, techString)
     return("NA")
 
