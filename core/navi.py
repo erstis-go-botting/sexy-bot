@@ -7,7 +7,7 @@ import requests
 import logging
 import configparser
 from bs4 import BeautifulSoup
-
+import settingsAvailable
 
 class Bot(object):
     """
@@ -20,6 +20,8 @@ class Bot(object):
     More sexy stuff coming soon. My hands are typing code. alskdfjölkasdjfölj <-- important part of
     documentation.
     """
+
+
 
     # Create a lovely session!
     session = requests.Session()

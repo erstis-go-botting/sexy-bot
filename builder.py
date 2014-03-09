@@ -1,16 +1,12 @@
 author__ = 'seamaster'
 
 import configparser
-from platform import system
+import os
 
 def builddec(currentlevels):
     """Decides, what to build next. Based on an input-dict and a build_guide.txt.
     Returns the name of the building as a string"""
-    #check if windows, since windows uses backslash -.-'
-    if system()=='Windows':
-        build_guide = open(r"settings\build_guide.txt").readlines()
-    else:
-        build_guide = open(r"settings/build_guide.txt").readlines()
+    build_guide = open("settings" + os.sep + " build_guide.txt",'r').readlines()
     for line in build_guide:
         line = line.strip().split()
         print("hail: " + line[0] + "lvl: " + line[1])
