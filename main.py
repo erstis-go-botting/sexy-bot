@@ -3,27 +3,47 @@ __author__ = 'sudo'
 
 from configparser import ConfigParser
 import requests
+import bs4
+import os
+import logging
+import inspect
+from core.navi import Bot
 
 
-def login():
-    LOGIN_URL = "http://de.ogame.gameforge.com/main/login"
+def get_logger():
+    """
+    Creates a sexy rootlogger.
+    Saves everything in 'logs/'
+    """
+    if not os.path.exists('logs/'):
+        os.makedirs('logs/')
 
-    cparser = ConfigParser()
-    cparser.read("settings/settings.ini")
+    #logging.basicConfig(level=logging.DEBUG)
+    logger = logging.getLogger('root')
+    logger.setLevel(logging.DEBUG)
 
-    password = cparser.get('credentials', 'password')
-    username = cparser.get('credentials', 'username')
-    universe = cparser.get('credentials', 'universe')
+    # create a filehandler
+    fh = logging.FileHandler('logs/debug.log')
+    fh.setLevel(logging.DEBUG)
 
-    data = dict()
-    data['pass'] = password
-    data['login'] = username
-    data['uni'] = "s"+universe+"-de.ogame.gameforge.com"
+    # create a streamhandler
+    sh = logging.StreamHandler()
+    sh.setLevel(logging.INFO)
 
-    requests.post(LOGIN_URL, data)
+    # Give us lots of infos hurrdurr
+    fileformatter = logging.Formatter('%(asctime)s |%(levelname)-7s | [%(filename)s:%(lineno)s - %(funcName)20s() ] '
+                                      '|%(name)-20s: %(message)s', datefmt='%d.%m %H:%M:%S')
+    standardformatter = logging.Formatter(' %(asctime)s | %(filename)s:%(lineno)-5s| %(message)s',
+                                          datefmt='%d.%m %H:%M:%S')
+    fh.setFormatter(fileformatter)
+    sh.setFormatter(standardformatter)
 
-    print('Logged in with: [{username} | {password}] on universe [{universe}]'.format(**locals()))
+    # Add everything
+    logger.addHandler(fh)
+    logger.addHandler(sh)
+    logger.info('created logger')
+    return logger
 
+logger = get_logger()
+bot = Bot()
 
-
-login()

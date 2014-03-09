@@ -1,4 +1,6 @@
 __author__ = 'jonasfelber'
+
+
 class Planet:
     NOT_INITIALIZIZED = -99999 #Const, do not change!
 
