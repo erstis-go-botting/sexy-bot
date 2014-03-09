@@ -1,5 +1,7 @@
 __author__ = 'seamaster'
 
+import configparser
+
 def builddec(currentlevels):
     """Decides, what to build next. Based on an input-dict and a build_guide.txt.
     Returns the name of the building as a string"""
@@ -18,3 +20,17 @@ def builddec(currentlevels):
 buildings_lvls = {"Metallmine": 2, "Kristallmine": 3, "Solarkraftwerk": 1}
 
 builddec(buildings_lvls)
+
+
+def techID_to_string(techid):
+    """Returns a the apropriate tech as a string."""
+    config = configparser.ConfigParser()
+    config.read(r'techIDs.ini')
+    section = config.sections()
+    for sec in section:
+        print("section" + sec)
+        for item in config[sec].items():
+            print("item" + repr(item))
+            if config[sec][item] == techid:
+                print("hi there " + repr(item[0]))
+                return item[0]
