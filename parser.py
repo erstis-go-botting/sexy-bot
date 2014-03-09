@@ -3,7 +3,7 @@ from datatypes import Planet
 from bs4 import BeautifulSoup
 
 
-def parseRessources(text, planet = Planet()):
+def parse_resources(text, planet = Planet()):
     #DISCLAIMER: Black macic code here!
     soup = BeautifulSoup(text)
     planet.metal = soup.find_all('span', attrs={'id': 'resources_metal'})[0].next.strip()
