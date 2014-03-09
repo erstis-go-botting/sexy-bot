@@ -63,7 +63,7 @@ def get_section(techString):
     config.read(r'techIDs.ini')
     sections = config.sections()
     for sec in sections:
-        if not (config.get(sec, techString.title(), fallback=None))==None:
+        if not (config.get(sec, techString.title(), fallback=None)):
             if sec=='shortcuts':
                 return get_section(config.get(sec,techString))
             else:
