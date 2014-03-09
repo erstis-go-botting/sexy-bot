@@ -55,25 +55,18 @@ class Bot(object):
         self.logger.info('Navigating to '+destination)
         return Bot.session.get(Bot.baseurl+destination).text
 
-    def is_logged_in(self):
-        """
-        Returns 1, if logged in
-                0 otherwise
-        """
-        html_text = self.goto('overview')
-        self.is_logged_in(html_text)
-
-
-    def is_logged_in(self, html_text):
+    def is_logged_in(self, html_text=None):
         """
         html_text: content of webpage (text)
         Returns 1, if logged in
                 0 otherwise
         """
+        if not html_text:
+            html_text = self.goto('overview')
+
         soup = BeautifulSoup(html_text)
-        #<input id="regSubmit" type="submit" value="Registrieren" onclick="setServerCookie('subscribeForm');setUserNameCookie('subscribeForm');"></input>
-        input_nodes = soup.find_all('input', attrs = {'id' : 'regSubmit', 'type' : 'submit'})
-        return len(input_nodes) == 0
+        ses = soup.find('meta', {'name': 'ogame-session'})
+        return ses is not None
 
     def login(self):
         """
