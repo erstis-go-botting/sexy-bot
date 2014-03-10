@@ -6,7 +6,7 @@ import os
 def builddec(currentlevels):
     """Decides, what to build next. Based on an input-dict and a build_guide.txt.
     Returns the name of the building as a string"""
-    build_guide = open("settings" + os.sep + " build_guide.txt",'r').readlines()
+    build_guide = open("settings" + os.sep + "build_guide.txt",'r').readlines()
     for line in build_guide:
         line = line.strip().split()
         print("hail: " + line[0] + "lvl: " + line[1])
@@ -44,8 +44,8 @@ def string_to_techID(techString):
     config.read(r'techIDs.ini')
     sections = config.sections()
     for sec in sections:
-        if not (config.get(sec, techString.title(), fallback=None)):
-            return config.get(sec, techString)
+        if techString.title() in config[sec]:
+            return config[sec][techString]
     return("NA")
 
 #returns the section name, can be called with integer variable or string.
