@@ -62,6 +62,23 @@ def parse_station(text,planet = dict()):
 
     return parse_buildings(soup,planet,counter_start=0)
 
+def parse_research(text,planet = dict()):
+    soup = BeautifulSoup(text)
+    if not planet.__contains__('levels'):
+        planet['levels'] = dict()
+
+    nodes = soup.find_all('div',attrs={'class':'buildingimg'})
+    for node in nodes:
+        id = node.find_all('a')[-1].attrs.get('ref')
+        levels = node.find_all('a')[-1].find_all('span',attrs= {'class':'level'})[-1]
+        level = -1
+        if len(levels.contents) == 1:
+            level = levels.contents[0].strip()
+        else:
+            level = levels.contents[2].strip()
+        planet['levels'][techID_to_string(id)] = int(level)
+    return planet
+
 def parse_system(text):
     soup = BeautifulSoup(text)
     soup.find_all()
