@@ -79,6 +79,15 @@ def parse_research(text,planet = dict()):
         planet['levels'][techID_to_string(id)] = int(level)
     return planet
 
+def parse_planet(bot):
+    """
+    parses the shit out of the planet
+    """
+    planet = parse_station(bot.goto('station'))
+    parse_resources(bot.goto('resources'),planet)
+    parse_research(bot.goto('research'),planet)
+    return planet
+
 def parse_system(text):
     soup = BeautifulSoup(text)
     soup.find_all()
