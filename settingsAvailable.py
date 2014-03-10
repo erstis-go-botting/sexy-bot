@@ -19,4 +19,19 @@ def settings_generator(universe = 82, username = 'defaultName', password = 'defa
         foo.write('[credentials]\nuniverse = '+ str(universe) +'\npassword = '+password+'\nusername = '+username)
         print("Settings.ini generated")
 
+def force_settings_generator(universe = 82, username = 'defaultName', password = 'defaultPassword', flag=False):
+    path = os.path.normcase('settings/settings.ini')
+    if not (os.path.isfile('settings/settings.ini')):
+        settings_generator(universe, username, password, flag)
+        return
+    if (universe == 82 and not(flag)) or (username == 'defaultName') or (password == 'defaultPassword'):
+        print("Not all fields specified, fallback on default configuration")
+        universe = 82
+        username = 'defaultName'
+        password = 'defaultPassword'
+    with open(path,'w') as foo:
+        foo.write('[credentials]\nuniverse = '+ str(universe) +'\npassword = '+password+'\nusername = '+username)
+        print("Settings.ini generated")
+
+
 #settings_generator()
