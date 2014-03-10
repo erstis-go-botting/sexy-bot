@@ -6,7 +6,7 @@ import os
 def builddec(currentlevels):
     """Decides, what to build next. Based on an input-dict and a build_guide.txt.
     Returns the name of the building as a string"""
-    build_guide = open("settings" + os.sep + " build_guide.txt",'r').readlines()
+    build_guide = open("settings" + os.sep + "build_guide.txt",'r').readlines()
     for line in build_guide:
         line = line.strip().split()
         print("hail: " + line[0] + "lvl: " + line[1])
