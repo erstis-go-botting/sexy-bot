@@ -16,4 +16,4 @@ def settings_generator(universe = 82, username = 'defaultName', password = 'defa
         with open(path,'w') as foo:
             foo.write('[credentials]\nuniverse = '+ str(universe) +'\npassword = '+password+'\nusername = '+username)
 
-settings_generator()
+#settings_generator()
