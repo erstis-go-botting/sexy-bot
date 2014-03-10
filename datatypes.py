@@ -10,8 +10,15 @@ class Planet:
     dark_matter = NOT_INITIALIZIZED
     energy = NOT_INITIALIZIZED
 
-    coordinates = '-1:-1:-1' #Koordinaten des Planeten
+    system = -1 #Koordinaten des Planeten
+    galaxy = -1
+    position = -1
     name = 'unknown' #Name des Planeten
     owner = 'unknown' #Besitzer des Planeten
 
     levels = dict() # Stufe/Level der Gebäude/Forschungen im format 'TECHID' : 'STUFE'
+
+class System:
+    planets = []
+    galaxy = -1
+    system = -1

@@ -64,6 +64,7 @@ class Bot(object):
         if not html_text:
             html_text = self.goto('overview')
 
+#soup.find_all('tr',attrs={'class' : 'row'})
         soup = BeautifulSoup(html_text)
         ses = soup.find('meta', {'name': 'ogame-session'})
         return ses is not None
@@ -125,3 +126,14 @@ class Bot(object):
                 return 1
             else:
                 logging.critical("Strange error. Needs inspection asap. list: [%s]" % target)
+
+    def explore_universe(self,galaxy, system):
+        """
+        returns html text only!
+        """
+        data = dict()
+        data['galaxy'] = galaxy
+        data['system'] = system
+        destination = 'galaxyContent&ajax=1'
+        self.logger.info('Navigating to '+destination + ' %s' % data)
+        return self.session.post(self.baseurl + destination, data).text
