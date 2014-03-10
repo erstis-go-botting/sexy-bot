@@ -7,7 +7,7 @@ import requests
 import logging
 import configparser
 from bs4 import BeautifulSoup
-import settingsAvailable
+import misc
 
 class Bot(object):
     """
@@ -77,7 +77,6 @@ class Bot(object):
         """
 
         # TODO check if is already logged in
-
         login_url = "http://de.ogame.gameforge.com/main/login"
         password = Bot.config.get('credentials', 'password')
         username = Bot.config.get('credentials', 'username')
