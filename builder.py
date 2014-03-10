@@ -6,7 +6,7 @@ import os
 def builddec(currentlevels):
     """Decides, what to build next. Based on an input-dict and a build_guide.txt.
     Returns the name of the building as a string"""
-    build_guide = open("settings" + os.sep + " build_guide.txt",'r').readlines()
+    build_guide = open("settings" + os.sep + "build_guide.txt",'r').readlines()
     for line in build_guide:
         line = line.strip().split()
         print("hail: " + line[0] + "lvl: " + line[1])
@@ -27,7 +27,7 @@ builddec(buildings_lvls)
 def techID_to_string(techid):
     """Returns a the apropriate tech as a string."""
     config = configparser.ConfigParser()
-    config.read(r'techIDs.ini')
+    config.read(r'techIDs.ini','utf-8')
     section = config.sections()
     for sec in section:
        # print("section" + sec)
@@ -41,7 +41,7 @@ def techID_to_string(techid):
 #returns "NA" if not available
 def string_to_techID(techString):
     config = configparser.ConfigParser()
-    config.read(r'techIDs.ini')
+    config.read(r'techIDs.ini','utf-8')
     sections = config.sections()
     for sec in sections:
         if not (config.get(sec, techString.title(), fallback=None)):
@@ -56,7 +56,7 @@ def get_section(techString):
     if(isinstance(techString, int)):
         techString=techID_to_string(techString)
     config = configparser.ConfigParser()
-    config.read(r'techIDs.ini')
+    config.read(r'techIDs.ini','utf-8')
     sections = config.sections()
     for sec in sections:
         if not (config.get(sec, techString.title(), fallback=None)):
