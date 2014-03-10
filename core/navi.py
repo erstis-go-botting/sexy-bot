@@ -3,11 +3,13 @@ __author__ = 'alskgj'
 
 # interface between bot logic and ogame
 
-import requests
 import logging
 import configparser
+import random
+
+import requests
 from bs4 import BeautifulSoup
-import settingsAvailable
+
 
 class Bot(object):
     """
@@ -20,8 +22,6 @@ class Bot(object):
     More sexy stuff coming soon. My hands are typing code. alskdfjölkasdjfölj <-- important part of
     documentation.
     """
-
-
 
     # Create a lovely session!
     session = requests.Session()
@@ -42,7 +42,7 @@ class Bot(object):
         self.logger.info('Bot initialized')
 
         self.login()
-        #self.build_something(4)  # just an example. ofc techid shouldnt be hardcoded
+
 
     def goto(self, destination):
         """
@@ -63,8 +63,6 @@ class Bot(object):
         """
         if not html_text:
             html_text = self.goto('overview')
-
-#soup.find_all('tr',attrs={'class' : 'row'})
         soup = BeautifulSoup(html_text)
         ses = soup.find('meta', {'name': 'ogame-session'})
         return ses is not None
@@ -121,19 +119,23 @@ class Bot(object):
                 logging.info(techid+" isn't buildable atm.")
                 return 0
             elif len(target) == 1:
-                logging.info("sent build request. techid: [%s]. url: [%s]" % (techid, target[0]))
+                self.logger.info("sent build request. techid: [%s]. url: [%s]"%(techid, target[0]))
                 Bot.session.get(target[0])
                 return 1
             else:
-                logging.critical("Strange error. Needs inspection asap. list: [%s]" % target)
+                self.logger.critical("Strange error. Needs inspection asap. list: [%s]"%target)
 
-    def explore_universe(self,galaxy, system):
+    def build_random(self):
         """
-        returns html text only!
+        The fun starts here
         """
-        data = dict()
-        data['galaxy'] = galaxy
-        data['system'] = system
-        destination = 'galaxyContent&ajax=1'
-        self.logger.info('Navigating to '+destination + ' %s' % data)
-        return self.session.post(self.baseurl + destination, data).text
+        soup=BeautifulSoup(self.goto("resources"))
+        temp_buildings_parse=soup.find_all('div', attrs={"class": "buildingimg"})
+        buildable=[element.a["onclick"] for element in temp_buildings_parse if "onclick" in element.a.attrs]
+        self.logger.info("%s possible buildings."%len(buildable))
+
+        if buildable:
+            building_links=[element.split("'")[1] for element in buildable]
+            target=random.choice(building_links)
+            self.logger.info('Sending build request: '+target)
+            Bot.session.get(target)
