@@ -7,6 +7,7 @@ import bs4
 import os
 import logging
 import inspect
+from core.parser import  parse_system
 from core.navi import Bot
 
 
@@ -46,4 +47,5 @@ def get_logger():
 
 logger = get_logger()
 bot = Bot()
-
+#text = bot.explore_universe(1,33)
+#parse_system(text)
